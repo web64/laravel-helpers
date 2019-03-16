@@ -1,8 +1,10 @@
 <?php
 
-function helper64()
-{
-    echo "web64/laravel-helpers is installed!";
+if (! function_exists('helper64')) {
+    function helper64()
+    {
+        echo "web64/laravel-helpers is installed!";
+    }
 }
 
 function file_get_collection( $file )
