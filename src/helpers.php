@@ -74,7 +74,6 @@ function log64( $filename, $message = null, $type = null )
     if ( is_array($message) )
         $message = print_r($message, true);
 
-    // [2017-09-01 14:13:02] local.INFO: 
     $date = date("Y-m-d H:i:s", time() );
     
     if ( $type == 'raw' )

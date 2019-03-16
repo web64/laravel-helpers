@@ -1,4 +1,4 @@
-# Laravel helper function
+# Laravel helper functions
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/web64/laravel-helpers.svg?style=flat-square)](https://packagist.org/packages/web64/laravel-helpers)
 [![Total Downloads](https://img.shields.io/packagist/dt/web64/laravel-helpers.svg?style=flat-square)](https://packagist.org/packages/web64/laravel-helpers)
