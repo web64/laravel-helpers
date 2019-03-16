@@ -1,5 +1,9 @@
 <?php
 
+function helper64()
+{
+    echo "web64/laravel-helpers is installed!";
+}
 
 function file_get_collection( $file )
 {
