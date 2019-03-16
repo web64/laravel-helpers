@@ -1,0 +1,54 @@
+{
+    "name": "web64/laravel-helpers",
+    "description": "Helper functions for Laravel projects",
+    "keywords": [
+        "web64",
+        "laravel-helpers"
+    ],
+    "homepage": "https://github.com/web64/laravel-helpers",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Web64",
+            "email": "olav@web64.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "5.8.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.8.*",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Web64\\LaravelHelpers\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Web64\\LaravelHelpers\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Web64\\LaravelHelpers\\LaravelHelpersServiceProvider"
+            ],
+            "aliases": {
+                "LaravelHelpers": "Web64\\LaravelHelpers\\LaravelHelpersFacade"
+            }
+        }
+    }
+}
