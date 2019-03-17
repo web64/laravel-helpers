@@ -179,6 +179,12 @@ function beep()
     echo chr(7);
 }
 
+
+function clear()
+{
+    echo "\033[2J\033[;H";
+}
+
 /**
  * 
  * @param mixed $str timestamp or date to be converted to mysql format
