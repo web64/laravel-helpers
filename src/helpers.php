@@ -1,5 +1,13 @@
 <?php
 
+// Logging
+// Debug
+// Date
+// CrateDB
+// MySQL
+// Neo4j
+// Deprecated
+
 if (! function_exists('helper64')) {
     function helper64()
     {
