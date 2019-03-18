@@ -55,6 +55,15 @@ function laravel_sql( $query )
     return $sql;
 }
 
+
+// Die and Dump Laravel builder/query SQL
+function ddsql( $query )
+{
+    dd(
+        laravel_sql( $query )
+    );
+}
+
 function sql( $sql, $bindings)
 {
     foreach( $bindings as $binding )
