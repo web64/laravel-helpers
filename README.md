@@ -13,3 +13,9 @@ You can install the package via composer:
 composer require web64/laravel-helpers
 ```
 
+## TODO:
+
+* file_get_json('data.json')
+* file_put_json($data, 'data.json')
+* file_get_csv('data.json')
+* file_put_csv($data, 'data.json')
