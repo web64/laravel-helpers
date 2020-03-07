@@ -279,32 +279,30 @@ function isActiveRoute($route, $output = "active")
 
 
 // convert bytes to human readable format
-function formatSizeUnits($bytes)
-{
-    if ($bytes >= 1073741824)
+if (! function_exists('formatSizeUnits')) {
+    function formatSizeUnits($bytes, $decimals = 2)
     {
-        $bytes = number_format($bytes / 1073741824, 2) . ' GB';
-    }
-    elseif ($bytes >= 1048576)
-    {
-        $bytes = number_format($bytes / 1048576, 2) . ' MB';
-    }
-    elseif ($bytes >= 1024)
-    {
-        $bytes = number_format($bytes / 1024, 2) . ' KB';
-    }
-    elseif ($bytes > 1)
-    {
-        $bytes = $bytes . ' bytes';
-    }
-    elseif ($bytes == 1)
-    {
-        $bytes = $bytes . ' byte';
-    }
-    else
-    {
-        $bytes = '0 bytes';
-    }
+        if ($bytes >= 1073741824)
+        {
+            $str = number_format($bytes / 1073741824, $decimals) . 'gb';
+        }
+        elseif ($bytes >= 1048576)
+        {
+            $str = number_format($bytes / 1048576, $decimals) . 'mb';
+        }
+        elseif ($bytes >= 1024)
+        {
+            $str = number_format($bytes / 1024, 0) . 'kb';
+        }
+        elseif ($bytes > 0)
+        {
+            $str = number_format($bytes / 1024, 0) . 'kb';
+        }
+        else
+        {
+            $str = '0 bytes';
+        }
 
-    return $bytes;
+        return $str;
+    }
 }
