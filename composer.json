@@ -1,30 +1,32 @@
 {
-    "name": "web64/laravel-helpers",
-    "description": "Helper functions for Laravel projects",
-    "keywords": [
-        "web64",
-        "laravel-helpers"
-    ],
-    "homepage": "https://github.com/web64/laravel-helpers",
-    "license": "MIT",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Web64",
-            "email": "olav.hjertaker@gmail.com",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": "^7.1"
-    },
-    "require-dev": {
-        "orchestra/testbench": "3.8.*",
-        "phpunit/phpunit": "^7.0"
-    },
-    "autoload": {
-        "files": [
-            "src/helpers.php"
-        ]
+  "name": "web64/laravel-helpers",
+  "description": "Helper functions for Laravel projects",
+  "keywords": [
+    "web64",
+    "laravel-helpers"
+  ],
+  "homepage": "https://github.com/web64/laravel-helpers",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Web64",
+      "email": "olav.hjertaker@gmail.com",
+      "role": "Developer"
     }
+  ],
+  "require": {
+    "php": "^7.2"
+  },
+  "require-dev": {
+    "orchestra/testbench": "5.1.*",
+    "phpunit/phpunit": "^8.0"
+  },
+  "autoload": {
+    "files": [
+      "src/helpers.php",
+      "src/cratedb.php",
+      "src/laravel.php"
+    ]
+  }
 }

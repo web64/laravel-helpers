@@ -15,71 +15,44 @@ if (! function_exists('helper64')) {
     }
 }
 
-function file_get_collection( $file )
-{
-    $lineCollection = collect();
-    foreach(file( $file ) as $line)
-    {
-        if ( !empty(trim($line)) )
-            $lineCollection[] = trim($line);
-    }
-
-    return $lineCollection;
-}
-
-// die and dump array - instead of dump( $twitterUser->toArray() );
-function dda( $model )
-{
-    if ( method_exists ( $model , 'toArray' ) )
-        dd( $model->toArray() );
-    else
-        dd( $model );
-}
-
-// dump array - instead of dump( $twitterUser->toArray() );
-function da( $model )
-{
-    if ( method_exists ( $model , 'toArray' ) )
-        dump( $model->toArray() );
-    else
-        dump($model);
-}
-
 function domain($url)
 {
     return parse_url($url, PHP_URL_HOST);
 }
 
-// Show real SQL for query
-function laravel_sql( $query )
-{
-    $sql = $query->toSql();
 
-    foreach( $query->getBindings() as $binding )
+
+if (! function_exists('sql'))
+{
+    function sql( $sql, $bindings = null)
     {
-        $sql = preg_replace("#\?#", is_numeric($binding) ? $binding : "'" . $binding . "'", $sql, 1);
+        if ( empty($bindings) ) return $sql;
+
+        foreach( $bindings as $key => $value )
+        {
+            if (is_numeric($key))
+            {
+                // ? bindings
+                $sql = preg_replace(
+                    "#\?#", 
+                    is_numeric($value) ? $value : "'" . $value . "'", 
+                    $sql, 
+                    1
+                );
+            }else{
+                // :bindings 
+                $sql = preg_replace(
+                    "/(:{$key}\b)/", 
+                    is_numeric($value) ? $value : "'" . $value . "'",
+                    $sql,
+                    1
+                );
+            }
+            
+        }
+    
+        return $sql;
     }
-
-    return $sql;
-}
-
-
-// Die and Dump Laravel builder/query SQL
-function ddsql( $query )
-{
-    dd(
-        laravel_sql( $query )
-    );
-}
-
-function sql( $sql, $bindings)
-{
-    foreach( $bindings as $binding )
-    {
-        $sql = preg_replace("#\?#", is_numeric($binding) ? $binding : "'" . $binding . "'", $sql, 1);
-    }
-
-    return $sql;
 }
 
 function neo4j_escape( $str )
@@ -128,30 +101,6 @@ function microtime_float()
 }
 
 
-function create_reldate( $timestamp, $date_format = 'M j' )
-{
-    if (!is_numeric($timestamp))
-        $timestamp = strtotime($timestamp);
-    else
-        $timestamp = $timestamp / 1000;
-
-    return mysql_reldate( $timestamp, $date_format = 'M j' );
-}
-
-
-function crate_carbon( $ts_milliseconds )
-{
-    if ( !$ts_milliseconds )    return null;
-
-    if (!is_numeric($ts_milliseconds))
-        $timestamp = strtotime($ts_milliseconds);
-    else
-        $timestamp = $ts_milliseconds / 1000;
-
-    return \Carbon\Carbon::createFromTimestamp( $timestamp );
-    
-}
-
 function mysql_reldate( $timestamp, $date_format = 'M j' )
 {
 	if (!is_numeric($timestamp))
@@ -184,7 +133,6 @@ function mysql_reldate( $timestamp, $date_format = 'M j' )
 	}
 	
 	return date($date_format, $timestamp);
-
 }
 
 /**
@@ -216,67 +164,6 @@ function mysql_date( $str = '' )
     else
         return date('Y-m-d H:i:s', strtotime($str) );
 }
-
-/**
- * 
- * @param mixed $str timestamp or date to be converted to CrateDB format
- */
-function crate_date( $str = '' )
-{
-    if ( empty($str) )
-        return date('Y-m-d\TH:i:s', time() );
-
-    if ( is_numeric( $str ) )
-        return date('Y-m-d\TH:i:s', $str );
-    else
-        return date('Y-m-d\TH:i:s', strtotime($str) );
-}
-
-function crate_for_humans( $timestamp = '', $short = true )
-{
-    if ( ! $timestamp ) return '';
-
-    // \Carbon\Carbon::setLocale('no');
-    if ( $short)
-        return \Carbon\Carbon::createFromTimestamp( $timestamp/1000 )->diffForHumans(null, false, true);
-    else
-        return \Carbon\Carbon::createFromTimestamp( $timestamp/1000 )->diffForHumans();
-}
-
-function crate_escape( $str )
-{
-    return str_replace("'", "''", $str );
-}
-
-/**
- * Convert DB results from array of array to Laravel default array of stdClass objects
- */
-function crate2obj( $dbres )
-{
-    if ( empty($dbres) )    return $dbres;
-
-    for( $x=0; $x < count($dbres); $x++ )
-    {
-        $dbres[$x] = (object) $dbres[$x];
-    }
-
-    return $dbres;
-}
-
-/* https://laracasts.com/discuss/channels/general-discussion/whats-the-cleanest-way-to-add-the-active-class-to-bootstrap-link-components
-|--------------------------------------------------------------------------
-| Detect Active Route - Blade
-|--------------------------------------------------------------------------
-|
-| Compare given route with current route and return output if they match.
-| Very useful for navigation, marking if the link is active.
-|
-*/
-function isActiveRoute($route, $output = "active")
-{
-    if (Route::currentRouteName() == $route) return $output;
-}
-
 
 // convert bytes to human readable format
 if (! function_exists('formatSizeUnits')) {
